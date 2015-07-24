@@ -1,0 +1,22 @@
+{
+  "name": "isobar-hackaton",
+  "version": "1.0.0",
+  "description": "Isobar chicago hackaton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weblancaster/isobar-hackaton.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weblancaster/isobar-hackaton/issues"
+  },
+  "homepage": "https://github.com/weblancaster/isobar-hackaton",
+  "dependencies": {
+    "leapjs": "^0.6.4"
+  }
+}
