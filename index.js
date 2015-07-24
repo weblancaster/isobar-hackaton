@@ -1,5 +1,6 @@
 /**
- * Static Server
+ * Static server setup
+ * @type {[type]}
  */
 var static = require('node-static');
 var fileServer = new static.Server('./views');
