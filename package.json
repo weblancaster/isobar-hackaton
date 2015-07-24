@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/weblancaster/isobar-hackaton",
   "dependencies": {
-    "leapjs": "^0.6.4"
+    "leapjs": "^0.6.4",
+    "node-static": "^0.7.7",
+    "nodemon": "^1.3.8"
   }
 }
