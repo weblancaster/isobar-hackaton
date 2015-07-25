@@ -7,7 +7,8 @@
 let React = require('react'),
     StateTree = require('./StateTree'),
     Cursors = require('./AppCursors'),
-    Styles = require('./scss/master.scss');
+    Styles = require('./scss/master.scss'),
+    Header = require('./components/Header');
 
 let App = React.createClass({
     mixins: [
@@ -25,14 +26,11 @@ let App = React.createClass({
         }
     },
     render () {
-        let versionNumber = this.props.version.toFixed(2);
         return (
-            <section className="app-base">
-                <h1>
-                    { this.props.appTitle }
-                    <sup>Version: { versionNumber }</sup>
-                </h1>
-                <h2>{ this.props.appSubtitle }</h2>
+            <section>
+                <Header appTitle={this.props.appTitle}
+                        appSubTitle={this.props.appSubtitle}
+                        version={this.props.version} />
             </section>
         );
     }
