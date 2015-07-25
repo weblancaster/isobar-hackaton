@@ -8,3 +8,5 @@ require('http').createServer(function (request, response) {
         fileServer.serve(request, response);
     }).resume();
 }).listen(5000);
+
+console.log('server running on localhost:5000');
