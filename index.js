@@ -1,12 +1,22 @@
-/**
- * Static Server
- */
-var static = require('node-static');
-var fileServer = new static.Server('./views');
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        fileServer.serve(request, response);
-    }).resume();
-}).listen(5000);
+var express = require('express')
+    , morgan = require('morgan')
+    , bodyParser = require('body-parser')
+    , methodOverride = require('method-override')
+    , app = express()
+    , port = process.env.PORT || 5000
+    , router = express.Router();
 
-console.log('server running on localhost:5000');
+app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/public'));
+app.use(morgan('dev'));
+app.use(bodyParser());
+app.use(methodOverride());
+
+router.get('/', function(req, res, next) {
+    res.render('index.html');
+});
+
+app.use('/', router);
+
+app.listen(port);
+console.log('App running on port', port);
