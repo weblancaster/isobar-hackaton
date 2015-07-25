@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Isobar Chicago Hackaton</title>
+    <meta charset="UTF-8">
+    <title>Isobar Chicago Hackaton</title>
 
-	<script src="//js.leapmotion.com/leap-0.6.4.js"></script>
-	<script src="//js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
+    <script src="//js.leapmotion.com/leap-0.6.4.js"></script>
+    <script src="//js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
 </head>
 <body>
-	
-	<h1>Isobar chicago Hackaton</h1>
-	
+
+<div id="labels"></div>
+
+<script type="text/javascript" class="codepen">
+    var riggedHandPlugin;
+    Leap.loop({
+        hand: function (hand) {
+            var label = hand.data('label');
+            if (!label) {
+                label = document.createElement('label');
+                document.body.appendChild(label);
+                /**
+                 * Here we set the label to show the hand type
+                 */
+                label.innerHTML = hand.type + " hand";
+                hand.data('label', label)
+            }
+            var handMesh = hand.data('riggedHand.mesh');
+            var screenPosition = handMesh.screenPosition(
+                hand.palmPosition,
+                riggedHandPlugin.camera
+            );
+            label.style.left = screenPosition.x + 'px';
+            label.style.bottom = screenPosition.y + 'px';
+        }
+    })
+    .use('riggedHand')
+    .use('handEntry')
+    .on('handLost', function (hand) {
+        var label = hand.data('label');
+        if (label) {
+            document.body.removeChild(label);
+            hand.data({label: undefined});
+        }
+    })
+    riggedHandPlugin = Leap.loopController.plugins.riggedHand;
+</script>
+
 </body>
 </html>
