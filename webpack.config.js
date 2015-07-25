@@ -8,16 +8,26 @@ module.exports = {
             'react': pathToReact
         }
     },
-    entry: path.resolve(__dirname, 'app/js/main.js'),
+    entry: path.resolve(__dirname, 'app/main.js'),
     output: {
-        path: path.resolve(__dirname, 'app/js/build'),
+        path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
     },
     module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            loader: 'babel'
-        }]
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                loader: 'babel'
+            },
+            {
+                test: /\.scss$/,
+                loader: "style!css!sass"
+            },
+            {
+                test: /\.(png|jpg|svg)$/,
+                loader: 'url?limit=25000'
+            }
+        ]
     },
     noParse: [pathToReact]
 };

@@ -4,7 +4,8 @@
  * @description The main app module that contains all of our views
  * @author B.Podczerwinski
  */
-let React = require('react');
+let React = require('react'),
+    Styles = require('./scss/master.scss');
 
 let App = React.createClass({
     getDefaultProps: function() {
