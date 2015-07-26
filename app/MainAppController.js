@@ -1,21 +1,8 @@
 'use strict';
 
-let StateTree = require('./StateTree'),
-    MainAppController = {
-
-        deselectButtons: function() {
-            let buttons = StateTree.select(["view", "controls", "buttons"]).get();
-            for(var i = 0; i < buttons.length; i++) {
-                var button = buttons[i];
-                debugger;
-                buttons[i].setState({
-                    selected: false
-                });
-            }
-        },
+let MainAppController = {
 
         initVoiceControl: function() {
-            //window.Draw.start();
 
             var recognizer = new webkitSpeechRecognition();
             recognizer.lang = "en";
@@ -34,12 +21,10 @@ let StateTree = require('./StateTree'),
         },
 
         processVoiceCommand: function(result) {
-            //document.getElementById("words").innerHTML = result[0].transcript;
             var rawResult = result[0].transcript,
                 resultArray = rawResult.split(" "),
                 colorButtons = $(".btn.color");
 
-            console.log(rawResult);
             $('#commands').text(rawResult);
 
             for(var i = 0; i < resultArray.length; i++) {
@@ -53,14 +38,19 @@ let StateTree = require('./StateTree'),
                     $('.controls').removeClass('active');
                 }
 
+                if(keyword === 'CLEAR') {
+                    window.Draw.clear();
+                }
+
                 // Step through our color buttons and look for a match
                 colorButtons.removeClass('selected');
                 colorButtons.each(function(e){
                     var button = $(this);
-                    if( button.hasClass(keyword)) {
+                    if( button.hasClass(keyword) ) {
                         button.addClass('selected');
                         $('#selectedColor').text(keyword);
                         $('.app-base').css('backgroundColor', keyword);
+                        window.Draw.setColor(keyword);
                     }
                 });
             }
