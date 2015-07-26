@@ -17,38 +17,44 @@
 </head>
 <body class="app-base" style="height: 100%; width: 100%;" >
 
-  <div class="demo-frame" style="height: 100%; width: 100%;">
+    <section id="App">
+
+    </section>
+
+
+    <div class="demo-frame" style="height: 100%; width: 100%;">
     <div class="demo-container" style="height: 100%; width: 100%;">
       <video id="video" width="640" height="480" controls preload autoplay loop muted></video>
       <canvas id="canvas" width="640" height="480"></canvas>
     </div>
   </div>
 
-    <!-- TODO: Finish adding leap to webpack build -->
+    <script src="../public/js/canvas.custom.js"></script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//js.leapmotion.com/leap-0.6.4.js"></script>
     <script src="//js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
+
     <script src="bundle.js"></script>
-		<script src="cvv.js"></script>
+	<script src="cvv.js"></script>
 		<!--
 		<script src="face.js"></script>
 	-->
 
   <script>
 	var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-// Get the canvas width and height
-var width = canvas.width, height = canvas.height;
-// Name some colors
-var red = '#F00', green = '#0F0', blue = '#00F', purple = '#A0F';
-// Create an array to save circle properties
-var circles = [ ];
+    var ctx = canvas.getContext('2d');
+    // Get the canvas width and height
+    var width = canvas.width, height = canvas.height;
+    // Name some colors
+    var red = '#F00', green = '#0F0', blue = '#00F', purple = '#A0F';
+    // Create an array to save circle properties
+    var circles = [ ];
 
-// Draw a circle with the given parameters:
-//   center: float array [x, y]
-//   radius: float > 0
-//   color: string "#RGB"
-//   fill: boolean
+    // Draw a circle with the given parameters:
+    //   center: float array [x, y]
+    //   radius: float > 0
+    //   color: string "#RGB"
+    //   fill: boolean
 function drawCircle(center, radius, color, fill) {
   // Make an closed arc with a complete rotation
   ctx.beginPath();

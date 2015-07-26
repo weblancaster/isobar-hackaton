@@ -15,6 +15,8 @@ let StateTree = require('./StateTree'),
         },
 
         initVoiceControl: function() {
+            window.Draw.start();
+
             var recognizer = new webkitSpeechRecognition();
             recognizer.lang = "en";
             recognizer.continuous = true;
@@ -25,7 +27,6 @@ let StateTree = require('./StateTree'),
                     var result = event.results[event.results.length-1];
                     if(result.isFinal) {
                         that.processVoiceCommand(result);
-
                     }
                 }
             };
