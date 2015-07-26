@@ -9,14 +9,14 @@
         currPosX: 0,
         currPosY: 0,
         isMousePressed: false,
-        strokeStyle: '#ffffff',
+        strokeStyle: 'red',
 
         start: function() {
 
             // create canvas
             this.canvas = document.createElement('canvas');
-            this.canvas.width = window.screen.width;
-            this.canvas.height = window.screen.height;
+            this.canvas.width = $('#video').width();
+            this.canvas.height = $('#video').height();
 
             // setup canvas
             this.context = this.canvas.getContext('2d');
@@ -25,9 +25,27 @@
 
 
             this.el.appendChild(this.canvas);
+
+
+            // test
+            this.context.beginPath();
+            this.context.moveTo(this.canvas.width / 2 , this.canvas.height / 2);
+            this.context.lineTo(this.canvas.width, this.canvas.height / 2);
+            this.context.moveTo(this.canvas.width / 2 , this.canvas.height / 2);
+            this.context.lineTo(this.canvas.width / 2, this.canvas.height);
+            this.context.closePath();
+            this.context.stroke();
+
         },
 
         line: function(x, y, isTouching) {
+            x = x * 1.3;
+            y = y * 1.3;
+
+            if(this.prevPosX === 0){
+                this.prevPosX = x;
+                this.prevPosY = y;
+            }
 
             if (isTouching) {
                 this.context.beginPath();
@@ -39,8 +57,6 @@
 
             this.prevPosX = x;
             this.prevPosY = y;
-
-            console.log('DRAW', this.prevPosX + ' ' + this.prevPosY);
         },
 
         setColor: function(keyword) {
@@ -62,13 +78,11 @@
             var that = this;
 
             $(this.canvas).mousedown(function (e) {
-                console.log('called A');
                 this.isMousePressed = true;
                 that.line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
             });
 
             $(this.canvas).mousemove(function (e) {
-                console.log('called B');
                 if (this.isMousePressed) {
                     that.line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
                 }
