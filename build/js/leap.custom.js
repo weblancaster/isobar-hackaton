@@ -62,12 +62,14 @@ controller.on('frame', function(frame) {
       circles.push(circle);
 
 			window.Draw.line(center[0], center[1], true);
+      console.log("touching");
     }
     else {
       color = blue;
       fill = false;
 			window.Draw.line(center[0], center[1], false);
     }
+
   }
 });
 
