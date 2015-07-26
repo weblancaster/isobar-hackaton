@@ -13,6 +13,18 @@
     margin-top: 0px;
     position: absolute;
   }
+
+	* {
+			box-sizing: border-box;
+	}
+
+	#draw {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			z-index: 10;
+	}
   </style>
 </head>
 <body class="app-base" style="height: 100%; width: 100%;" >
@@ -24,216 +36,20 @@
     </div>
   </div>
 
+	  <div id="draw"></div>
+
     <!-- TODO: Finish adding leap to webpack build -->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//js.leapmotion.com/leap-0.6.4.js"></script>
     <script src="//js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
     <script src="bundle.js"></script>
 		<script src="cvv.js"></script>
+		<script src="js/canvas.custom.js"></script>
+		<script src="js/leap.custom.js"></script>
+		<script src="js/video.js"></script>
 		<!--
 		<script src="face.js"></script>
 	-->
 
-  <script>
-	var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-// Get the canvas width and height
-var width = canvas.width, height = canvas.height;
-// Name some colors
-var red = '#F00', green = '#0F0', blue = '#00F', purple = '#A0F';
-// Create an array to save circle properties
-var circles = [ ];
-
-// Draw a circle with the given parameters:
-//   center: float array [x, y]
-//   radius: float > 0
-//   color: string "#RGB"
-//   fill: boolean
-function drawCircle(center, radius, color, fill) {
-  // Make an closed arc with a complete rotation
-  ctx.beginPath();
-  ctx.arc(center[0], center[1], radius, 0, 2*Math.PI);
-  ctx.closePath();
-  ctx.lineWidth = 4;
-  // Choose whether to fill or outline the circle
-  if (fill) {
-    ctx.fillStyle = color;
-    ctx.fill();
-  } else {
-    ctx.strokeStyle = color;
-    ctx.stroke();
-  }
-}
-
-// Transform Leap coordinates to canvas scene coordinates
-function leapToScene(position) {
-  var x = position[0];
-  var y = position[1];
-  // Shift the Leap origin to the canvas's bottom center and invert the y-axis
-  return [width/2 + x, height - y];
-}
-
-// Create a Leap controller to access frame data
-var controller = new Leap.Controller();
-
-// Register a callback to process frame data
-controller.on('frame', function(frame) {
-  // Clear the canvas so we can repaint
-  ctx.clearRect(0, 0, width, height);
-
-  // Draw a green circle to test the canvas
-  drawCircle([width/2, 50], 20, green);
-
-  // Make sure we have accumulated at most 200 circles
-  if (circles.length > 200) {
-    circles = circles.slice(-200); // Last 200 circles
-  }
-
-  // Redraw accumulated circles
-  for (var c = 0; c < circles.length; c = c+1) {
-    // Retrieve the circle properties
-    var center = circles[c].center;
-    var radius = circles[c].radius;
-    // Redraw the circle filled in purple
-    drawCircle(center, radius, purple, true);
-  }
-
-  // Draw finger tips as colored circles
-  for (var f = 0; f < frame.fingers.length; f = f+1) {
-    var finger = frame.fingers[f];
-    // Calculate the circle center and radius
-    var center = leapToScene(finger.tipPosition);
-    var radius = Math.abs(finger.touchDistance) * 30;
-    // Determine if the finger is touching or not
-    var touching = finger.touchZone == 'touching';
-    // Decide the circle color and whether to fill it
-    var color;
-    var fill;
-    if (touching) {
-      color = red;
-      fill = true;
-      // Save the circle properties to redraw it later
-      var circle = {center: center, radius: radius};
-      circles.push(circle);
-    }
-    else {
-      color = blue;
-      fill = false;
-    }
-    // Finally, draw the circle
-    drawCircle(center, radius, color, fill);
-  }
-});
-
-// Connect the controller to start receiving data
-controller.connect();
-
-
-	var glasses = new Image();
-	glasses.src = "glasses.png";
-    // window.onload = function() {
-    //   var video = document.getElementById('video');
-    //   var canvas = document.getElementById('canvas');
-    //   var context = canvas.getContext('2d');
-    //   var tracker = new tracking.ObjectTracker('face');
-    //   tracker.setInitialScale(4);
-    //   tracker.setStepSize(2);
-    //   tracker.setEdgesDensity(0.1);
-    //   tracking.track('#video', tracker, { camera: true });
-    //   tracker.on('track', function(event) {
-    //     context.clearRect(0, 0, canvas.width, canvas.height);
-    //     event.data.forEach(function(rect) {
-		// 			context.drawImage(glasses, rect.x, rect.y,rect.width, rect.height);
-		//
-    //       // context.strokeStyle = '#a64ceb';
-    //       // context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-    //       // context.font = '11px Helvetica';
-    //       // context.fillStyle = "#fff";
-    //       // context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
-    //       // context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
-    //     });
-    //   });
-    //   var gui = new dat.GUI();
-    //   gui.add(tracker, 'edgesDensity', 0.1, 0.5).step(0.01);
-    //   gui.add(tracker, 'initialScale', 1.0, 10.0).step(0.1);
-    //   gui.add(tracker, 'stepSize', 1, 5).step(0.1);
-    // };
-  </script>
-
-		<script>
-		/*
-		var
-		        // Store the first HTML5 video element in the document
-		        video = document.querySelector('video'),
-		        // We use this to time how long things are taking. Not that important..
-		        time_dump = document.getElementById("elapsed_time"),
-		        found_div = document.getElementById("faces_found"),
-		        // Create a new image that will be our goofy glasses
-		        glasses = new Image(),
-		        // Store the canvas so we can write to it
-		        canvas = document.getElementById("output"),
-		        // canvas2 = document.getElementById("output2"),
-		        btn_send_image = document.getElementById("send_image"),
-		        // Get the canvas 2d Context
-		        ctx = canvas.getContext("2d");
-		        // ctx2 = canvas2.getContext("2d");
-		        // Finally set the source of our new glasses img element
-		        glasses.src = "i/glasses.png";
-
-		        faces_found = 0;
-
-		function html5glasses() {
-		    // Start the clock
-		    var elapsed_time = (new Date()).getTime();
-
-		    // Draw the video to canvas
-		    ctx.drawImage(video, 0, 0, video.width, video.height, 0, 0, canvas.width, canvas.height);
-
-		    // use the face detection library to find the face
-		    var comp = ccv.detect_objects({ "canvas" : (ccv.pre(canvas)),
-		                                    "cascade" : cascade,
-		                                    "interval" : 1,
-		                                    "min_neighbors" : 1 });
-
-		    // Stop the clock
-		    // time_dump.innerHTML = "Process time : " + ((new Date()).getTime() - elapsed_time).toString() + "ms";
-
-		    faces_found += comp.length;
-		    // Draw glasses on everyone!
-		    for (var i = 0; i < comp.length; i++) {
-		      ctx.drawImage(glasses, comp[i].x, comp[i].y,comp[i].width, comp[i].height);
-		      // drawImage(source,source.x, source.y, source.width, source.height, dest.x, dest.y, dest.width, dest.height)
-		        // ctx2.drawImage(video, comp[i].x-75, comp[i].y-75,comp[i].width+150, comp[i].height+150, 0, 0,200, 200);
-		        // found_div.innerHTML = faces_found;
-		    }
-		}
-
-		video.addEventListener('play', function() {
-		    vidInterval = setInterval(html5glasses,50);
-		});
-
-		video.addEventListener('ended', function() {
-		    clearInterval(vidInterval);
-		    time_dump.innerHTML = "finished";
-		});
-
-
-		  var errorCallback = function(e) {
-		    console.log('Reeeejected!', e);
-		  };
-		  // Not showing vendor prefixes.
-		  navigator.webkitGetUserMedia({video: true, audio: true}, function(localMediaStream) {
-		    // var video = document.querySelector('video');
-		    // video.src = window.URL.createObjectURL(localMediaStream);
-				//
-		    // // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-		    // // See crbug.com/110938.
-		    // video.onloadedmetadata = function(e) {
-		    //   // Ready to go. Do some stuff.
-		    // };
-		  }, errorCallback);
-			function errorCallback(){}
-*/
-		</script>
 </body>
 </html>
