@@ -6,7 +6,6 @@
  */
 let React = require('react'),
     Styles = require('./scss/master.scss'),
-    Header = require('./components/Header'),
     Controls = require('./components/Controls'),
     MainAppController = require('./MainAppController');
 
@@ -18,7 +17,6 @@ let App = React.createClass({
         return (
             <section>
                 <Controls />
-                <Header />
             </section>
         );
     }

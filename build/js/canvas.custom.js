@@ -9,7 +9,7 @@
         currPosX: 0,
         currPosY: 0,
         isMousePressed: false,
-        strokeStyle: 'red',
+        strokeStyle: 'white',
 
         start: function() {
 
@@ -25,17 +25,6 @@
 
 
             this.el.appendChild(this.canvas);
-
-
-            // test
-            this.context.beginPath();
-            this.context.moveTo(this.canvas.width / 2 , this.canvas.height / 2);
-            this.context.lineTo(this.canvas.width, this.canvas.height / 2);
-            this.context.moveTo(this.canvas.width / 2 , this.canvas.height / 2);
-            this.context.lineTo(this.canvas.width / 2, this.canvas.height);
-            this.context.closePath();
-            this.context.stroke();
-
         },
 
         line: function(x, y, isTouching) {
@@ -60,46 +49,20 @@
         },
 
         setColor: function(keyword) {
-            this.strokeStyle = keyword;
+            this.context.strokeStyle = keyword.toLowerCase();
+
         },
 
         resetColor: function() {
-            this.strokeStyle = '#ffffff'
+            this.strokeStyle = '#ffffff';
         },
 
         clear: function() {
             this.context.setTransform(1, 0, 0, 1, 0, 0);
             this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
-        },
-
-
-        // Add listener prototype/test with mouse drawing
-        addListeners: function() {
-            var that = this;
-
-            $(this.canvas).mousedown(function (e) {
-                this.isMousePressed = true;
-                that.line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-            });
-
-            $(this.canvas).mousemove(function (e) {
-                if (this.isMousePressed) {
-                    that.line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-                }
-            });
-
-            $(this.canvas).mouseup(function (e) {
-                this.isMousePressed = false;
-            });
-
-            $(this.canvas).mouseleave(function (e) {
-                this.isMousePressed = false;
-            });
         }
-
 
     };
 
     window.Draw.start();
-    window.Draw.addListeners();
 })(window);
