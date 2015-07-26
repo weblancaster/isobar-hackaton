@@ -1,6 +1,6 @@
 'use strict';
 
-let MainAppController = {
+var MainAppController = {
 
         initVoiceControl: function() {
 
@@ -29,6 +29,18 @@ let MainAppController = {
 
             for(var i = 0; i < resultArray.length; i++) {
                 var keyword = resultArray[i].toUpperCase();
+                console.log('Voice activated: ', keyword);
+
+                if(keyword === 'VIDEO') {
+                    if ( $('.demo-frame').hasClass('hidden') ) {
+                        $('.demo-frame').show();
+                    } else {
+                        $('.demo-frame').hide();
+                        window.Draw.setColor('black');
+                        $('.app-base').css('backgroundColor', 'white');
+                    }
+                    $('.demo-frame').toggleClass('hidden');
+                }
 
                 if(keyword === 'OPEN') {
                     $('.controls').addClass('active');
@@ -42,16 +54,28 @@ let MainAppController = {
                     window.Draw.clear();
                 }
 
+                if(keyword === 'PRINT') {
+                    window.print();
+                }
+
                 // Step through our color buttons and look for a match
                 colorButtons.removeClass('selected');
                 colorButtons.each(function(e){
                     var button = $(this);
-                    if( button.hasClass(keyword) ) {
-                        button.addClass('selected');
-                        $('#selectedColor').text(keyword);
-                        $('.app-base').css('backgroundColor', keyword);
-                        window.Draw.setColor(keyword);
+
+                    if( ! button.hasClass(keyword) ) {
+                        return;
                     }
+
+                    button.addClass('selected');
+                    $('#selectedColor').text(keyword);
+
+                    if ( ! $('.demo-frame').hasClass('hidden') ) {
+                        $('.app-base').css('backgroundColor', keyword);
+                    }
+
+                    window.Draw.setColor(keyword);
+
                 });
             }
         }

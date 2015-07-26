@@ -23,3 +23,9 @@ body {
     z-index: 20;
 }
 
+@media print {
+    #app {
+        display: block;
+    }
+}
+

@@ -49,8 +49,8 @@
         },
 
         setColor: function(keyword) {
+            console.log('changing color to: ', keyword);
             this.context.strokeStyle = keyword.toLowerCase();
-
         },
 
         resetColor: function() {
@@ -58,6 +58,7 @@
         },
 
         clear: function() {
+            console.log('Cleaning draw');
             this.context.setTransform(1, 0, 0, 1, 0, 0);
             this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
         }
