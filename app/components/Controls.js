@@ -45,14 +45,11 @@ let Controls = React.createClass({
         return (
             <section className="controls active">
                 <div className="colors">
-                    <div>Selected Color: <div className="selected-color">{ this.state.selectedColor }</div></div>
+                    <div>Selected Color: <div id="selectedColor">{ this.state.selectedColor }</div></div>
                     <div className="flex-container">
                         {buttons}
                     </div>
                 </div>
-                <div id="commands">
-                </div>
-
             </section>
         );
     }

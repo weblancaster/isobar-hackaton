@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Isobar Chicago Hackaton</title>
-    <script src="tracking-min.js"></script>
-    <script src="face-min.js"></script>
-    <script src="dat.gui.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Isobar Chicago Hackaton</title>
 
     <style>
         video, canvas {
@@ -35,26 +35,25 @@
 </head>
 <body class="app-base" style="height: 100%; width: 100%;">
 
-<div class="demo-frame" style="height: 100%; width: 100%;">
-    <div class="demo-container" style="height: 100%; width: 100%;">
-        <video id="video" controls preload autoplay loop muted></video>
+    <div class="demo-frame" style="height: 100%; width: 100%;">
+        <div class="demo-container" style="height: 100%; width: 100%;">
+            <video id="video" controls preload autoplay loop muted></video>
+        </div>
     </div>
-</div>
 
-<div id="draw"></div>
+    <div id="draw"></div>
 
-<!-- TODO: Finish adding leap to webpack build -->
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//js.leapmotion.com/leap-0.6.4.js"></script>
-<script src="//js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
-<script src="bundle.js"></script>
-<script src="cvv.js"></script>
-<script src="js/canvas.custom.js"></script>
-<script src="js/leap.custom.js"></script>
-<script src="js/video.js"></script>
-<!--
-<script src="face.js"></script>
--->
+    <div id="App"></div>
+
+    <!-- TODO: Finish adding leap to webpack build -->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//js.leapmotion.com/leap-0.6.4.js"></script>
+    <script src="//js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
+    <script src="bundle.js"></script>
+    <script src="cvv.js"></script>
+    <script src="js/canvas.custom.js"></script>
+    <script src="js/leap.custom.js"></script>
+    <script src="js/video.js"></script>
 
 </body>
 </html>
