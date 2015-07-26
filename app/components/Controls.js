@@ -15,6 +15,10 @@ let Controls = React.createClass({
                 "RED",
                 "ORANGE",
                 "YELLOW",
+                "GREEN",
+                "BLUE",
+                "PURPLE",
+                "PINK",
                 "BLACK"
             ],
             shapes: [
