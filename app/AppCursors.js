@@ -4,7 +4,7 @@
  * @description Pointers into our StateTree
  * @author B.Podczerwinski
  */
-var AppCursors = {
+let AppCursors = {
 
     /**
      * MODEL CURSORS
@@ -16,7 +16,8 @@ var AppCursors = {
      * VIEW CURSORS
      */
     view: ['view'],
-    controls: ['view', 'controls']
+    controls: ['view', 'controls'],
+    selectedColor: ['view', 'controls', 'selectedColor']
 };
 
 module.exports = AppCursors;

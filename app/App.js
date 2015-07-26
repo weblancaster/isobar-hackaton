@@ -5,32 +5,20 @@
  * @author B.Podczerwinski
  */
 let React = require('react'),
-    StateTree = require('./StateTree'),
-    Cursors = require('./AppCursors'),
     Styles = require('./scss/master.scss'),
-    Header = require('./components/Header');
+    Header = require('./components/Header'),
+    Controls = require('./components/Controls'),
+    MainAppController = require('./MainAppController');
 
 let App = React.createClass({
-    mixins: [
-        StateTree.mixin,
-        React.addons.PureRenderMixin
-    ],
-    cursors: {
-        app: Cursors.app
-    },
-    getDefaultProps: function() {
-        return {
-            appTitle: StateTree.select(Cursors['app']).get('title'),
-            appSubtitle: StateTree.select(Cursors['app']).get('subTitle'),
-            version: StateTree.select(Cursors['app']).get('version')
-        }
+    componentDidMount: function() {
+        MainAppController.initVoiceControl();
     },
     render () {
         return (
             <section>
-                <Header appTitle={this.props.appTitle}
-                        appSubTitle={this.props.appSubtitle}
-                        version={this.props.version} />
+                <Controls />
+                <Header />
             </section>
         );
     }

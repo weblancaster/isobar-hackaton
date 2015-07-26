@@ -4,25 +4,22 @@
  * @description
  * @author B.Podczerwinski
  */
-let React = require('react'),
-    StateTree = require('../StateTree'),
-    Cursors = require('../AppCursors');
+var React = require('react');
 
-let Header = React.createClass({
+var Header = React.createClass({
     getDefaultProps: function() {
         return {
-            appTitle: "",
-            appSubtitle: "",
-            version: NaN
+            appTitle: "ISOBAR HACKATHON",
+            appSubtitle: "TEAM AVIATO",
+            version: 1.00
         }
     },
     render () {
-        let versionNumber = this.props.version.toFixed(2);
         return (
             <header>
                 <h1>
                     { this.props.appTitle }
-                    <sup>Version: { versionNumber }</sup>
+                    <sup>Version: { this.props.versionNumber }</sup>
                 </h1>
                 <h2>{ this.props.appSubtitle }</h2>
             </header>

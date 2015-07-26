@@ -5,7 +5,6 @@
  * @author B.Podczerwinski
  */
 let Baobab = require('baobab');
-
 window.StateTree = new Baobab({
     model: {
         app: {
@@ -15,7 +14,9 @@ window.StateTree = new Baobab({
         }
     },
     view: {
-        controls: {}
+        controls: {
+            selectedColor: "SELECT A COLOR"
+        }
     }
 });
 
