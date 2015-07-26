@@ -15,7 +15,7 @@ let StateTree = require('./StateTree'),
         },
 
         initVoiceControl: function() {
-            window.Draw.start();
+            //window.Draw.start();
 
             var recognizer = new webkitSpeechRecognition();
             recognizer.lang = "en";
@@ -59,7 +59,8 @@ let StateTree = require('./StateTree'),
                     var button = $(this);
                     if( button.hasClass(keyword)) {
                         button.addClass('selected');
-                        $('.selected-color').text = keyword;
+                        $('#selectedColor').text(keyword);
+                        $('.app-base').css('backgroundColor', keyword);
                     }
                 });
             }
