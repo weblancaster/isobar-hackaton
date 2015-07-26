@@ -72,8 +72,6 @@
         // Returns the values, making sure to negate the sign
         // of the y coordinate, because the y basis in canvas
         // points down instead of up
-        console.log("width: " + width,
-            "height: " + height);
 
         return [ x , -y ];
     }
